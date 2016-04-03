@@ -49,7 +49,7 @@ J'y ajoute ces quelques lignes entre les balises head >:
     {% highlight html %}
         <head>
             { % for css_name in page.extra_css % }
-                <link rel="stylesheet" href="{{ site.url }}/css/postspecific/{{ css_name }}">
+                <link rel="stylesheet" href="{{ site.url }}/assets/css/postspecific/{{ css_name }}">
             { % endfor % }
         </head>
     {% endhighlight %}
@@ -101,7 +101,7 @@ Ceci étant fait, dans le fichier _include/head.html je fais ma modification pou
     <head>
     
         { % for js_name in page.extra_js % }
-            <script type='text/javascript' src="{{ site.url }}/javascript/postspecific/{{ js_name }}"></script>
+            <script type='text/javascript' src="{{ site.url }}/assets/javascript/postspecific/{{ js_name }}"></script>
         { % endfor % }
     
     </head>
