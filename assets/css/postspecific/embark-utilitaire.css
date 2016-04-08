@@ -1,0 +1,99 @@
+div.sheet_utilitaire {
+	position:relative;
+	margin-top:25px;
+	margin: 5px;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-bottom: 5px;
+	background-color: #e5d1fa;
+	border-radius: 8px;
+	box-shadow: 0px 0px 6px #555;
+	font-family: awesome ;
+	margin-top:10px;
+	color: #320a5c;
+}
+
+div.sheet_utilitaire a{
+	font-family: awesome ;
+	position:absolute;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    text-decoration:none; /* Makes sure the link   doesn't get underlined */
+    z-index:10; /* raises anchor tag above everything else in div */
+    background-color:white; /*workaround to make clickable in IE */
+    opacity: 0; /*workaround to make clickable in IE */
+    filter: alpha(opacity=1); /*workaround to make clickable in IE */
+}
+
+.sheet_title_utilitaire {
+	font-family: awesome ;
+	font-size: 18px;
+	font-weight: bolder;
+	padding-top:20px;
+	padding-left:10px;
+	padding-right:10px;
+	padding-bottom:10px;
+	margin:0px;
+	margin-bottom:10px;
+	background: #c69cf4;
+	color: #320a5c;
+	background-image: url(../../images/icon_utilitaire.png);
+	background-repeat: no-repeat;
+	background-position: right bottom;
+}
+
+.sheet_description_utilitaire {
+	font-family: awesome;
+	font-size:15px;
+	font-weight: normal;
+	padding-left: 5px;
+
+}
+
+.sheet_embed_utilitaire {
+	font-family: awesome;
+	margin: 0px;
+	background-color: #FFFFFF;
+	border-style: solid;
+	border-width: 2px;
+	border-radius: 6px;
+	min-height: 160px;
+}
+.image_embeded_utilitaire {
+	border:1px;
+	border-style:solid;
+	margin:5px;
+	max-width:150px;
+	max-height:150px;
+	float: left;
+}
+.sheet_embeded_link_utilitaire {
+	font-family: awesome;
+    display: block;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+}
+.title_embeded_utilitaire {
+	font-family: awesome;
+	font-size: 14px;
+	font-weight: bolder;
+	margin-left: 5px;
+	padding-left:5px;
+}
+.excerpt_embeded_utilitaire {
+	font-family: awesome;
+	font-size:12px;
+	font-weight: normal;
+	font-style: italic;
+	padding-left: 5px;
+}
+.domain_name_embeded_utilitaire {
+	margin:0px;
+	padding:0px;
+	padding-right:5px;
+	text-align:right;
+	font-family: awesome;
+}
