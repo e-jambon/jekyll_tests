@@ -7,6 +7,8 @@ module Jekyll
   require 'digest'
 
 
+CACHEFOLDER = "assets/embarked" # Change this in case you want to set the cachefolder elsewhere.
+
 
   class EmbarkTag < Liquid::Tag
 
@@ -19,12 +21,14 @@ module Jekyll
       
 
       array_of_params = params.split("__")
-
-      @embarkedURI = URI("#{array_of_params[0]}")
-      @title = array_of_params[1]
+      url = (array_of_params[0]).strip
+      @embarkedURI = URI("#{url}")
+      @title = (array_of_params[1]).strip
       @comment = array_of_params[2]
       @style = array_of_params[3]
-      @cacheFolder = "assets/embarked" #choose where your cache will be...
+
+
+      @cacheFolder = CACHEFOLDER # You may want to choose another structure.
     end
 
     def folderExists?(folder)
@@ -40,22 +44,30 @@ module Jekyll
     end
 
     def getUriMD5()
-      uriOrderParams!
-      md5 = Digest::MD5.new
-      md5 << @embarkedURI.to_s # exactly the same as above, it's an alias.
-      md5.hexdigest
+      begin
+        uriOrderParams!
+        md5 = Digest::MD5.new
+        md5 << @embarkedURI.to_s 
+        md5.hexdigest  
+      rescue StandardError => e
+        puts " Error in  embark plugin : getUriMD5. #{e.backtrace.first}: #{e.message} (#{e.class})", e.backtrace.drop(1).map{|s| "\t#{s}"}
+      end
     end
 
     def writeContentToCache (filename, content )
-        embarkedHtmlFile = File.new("#{@cacheFolder}/#{filename}.html", "w")
-        embarkedHtmlFile.puts content
-        embarkedHtmlFile.close
+      begin
+        embarkedHtmlFile = File.new("#{@cacheFolder}/#{filename}.html", "w:UTF-8")
+        embarkedHtmlFile.puts content       
+      rescue IOError => e
+        puts " Error in  embark plugin : writeContentToCache. #{e.backtrace.first}: #{e.message} (#{e.class})", e.backtrace.drop(1).map{|s| "\t#{s}"}
+      ensure
+        embarkedHtmlFile && embarkedHtmlFile.close
+      end
     end
 
 
     def render(context)
       cacheFileName = getUriMD5()
-
       if ( alreadyEmbarked?(@cacheFolder, "#{cacheFileName}") )
         html = File.read("#{@cacheFolder}/#{cacheFileName}.html")
         html #  including the content of the file it in the post.
@@ -79,15 +91,13 @@ module Jekyll
         "</div>" +
         "</div>"
 
-        writeContentToCache cacheFileName , content
-        content # Including the content in the post.
+        content && (writeContentToCache cacheFileName , content)
+        content # Including the content in the post. 
       end
-
-      # No error management, no tests...
-      # what could possibly go wrong  when playing with strings and files.
-
-    end
-  end
-end
+      # What could possibly go wrong  when playing with strings and files ?
+      # FIXME : No tests...
+    end # render(context)
+  end # class EmbarkTag
+end # Module Jekyll
 
 Liquid::Template.register_tag('embark', Jekyll::EmbarkTag)
